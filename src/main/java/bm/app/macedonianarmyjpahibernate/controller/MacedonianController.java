@@ -25,4 +25,14 @@ public class MacedonianController {
     public void addMacedonian(@RequestBody Macedonian macedonian) {
         macedonianRepository.save(macedonian);
     }
+
+    @GetMapping("/getSingleMacedonianByName")
+    public List<Macedonian> getSingleMacedonianByName(@RequestParam String name) {
+        return macedonianRepository.findByName(name);
+    }
+
+    @GetMapping("/getUnitById")
+    public List<Macedonian> getMacedoniansByUnitOrderById(@RequestParam String unit) {
+        return macedonianRepository.findByUnitOrderById(unit);
+    }
 }
