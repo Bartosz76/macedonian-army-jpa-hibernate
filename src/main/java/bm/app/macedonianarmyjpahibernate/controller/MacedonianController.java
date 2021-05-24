@@ -16,7 +16,7 @@ public class MacedonianController {
         this.macedonianRepository = macedonianRepository;
     }
 
-    @GetMapping("/getMacedonians")
+    @GetMapping(value = "/getMacedonians", produces = {"application/json"})
     public List<Macedonian> getMacedonians() {
         return macedonianRepository.findAll();
     }
