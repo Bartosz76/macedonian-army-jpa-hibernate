@@ -21,23 +21,28 @@ public class MacedonianController {
         return macedonianRepository.findAll();
     }
 
-    @PostMapping("/addMacedonian")
+    @PostMapping("/addMacedonian/{macedonian}")
     public void addMacedonian(@RequestBody Macedonian macedonian) {
         macedonianRepository.save(macedonian);
     }
 
-    @GetMapping("/getSingleMacedonianByName")
+    @GetMapping("/getSingleMacedonianByName/{name}")
     public List<Macedonian> getSingleMacedonianByName(@RequestParam String name) {
         return macedonianRepository.findByName(name);
     }
 
-    @GetMapping("/getUnitById")
+    @GetMapping("/getUnitById/{unit}")
     public List<Macedonian> getMacedoniansByUnitOrderById(@RequestParam String unit) {
         return macedonianRepository.findByUnitOrderById(unit);
     }
 
-    @GetMapping("/getMacedonianByQuery")
+    @GetMapping("/getMacedonianByQuery/{name}")
     public List<Macedonian> getMacedonianByNameWithQuery(@RequestParam String name) {
         return macedonianRepository.find(name);
+    }
+
+    @DeleteMapping("/dischargeMacedonian/{id}")
+    public void dischargeMacedonian(@RequestParam Long id) {
+        macedonianRepository.delete(macedonianRepository.getById(id));
     }
 }
