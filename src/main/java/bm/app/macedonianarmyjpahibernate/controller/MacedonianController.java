@@ -35,4 +35,9 @@ public class MacedonianController {
     public List<Macedonian> getMacedoniansByUnitOrderById(@RequestParam String unit) {
         return macedonianRepository.findByUnitOrderById(unit);
     }
+
+    @GetMapping("/getMacedonianByQuery")
+    public List<Macedonian> getMacedonianByNameWithQuery(@RequestParam String name) {
+        return macedonianRepository.find(name);
+    }
 }

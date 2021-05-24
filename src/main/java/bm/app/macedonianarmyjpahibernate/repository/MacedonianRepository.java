@@ -2,6 +2,8 @@ package bm.app.macedonianarmyjpahibernate.repository;
 
 import bm.app.macedonianarmyjpahibernate.model.Macedonian;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,6 +30,14 @@ public interface MacedonianRepository extends JpaRepository<Macedonian, Long> {
 
     List<Macedonian> findByUnitOrderById(String unit);
 
+    /**
+     * Query annotation.
+     * By default, JpaRepository looks for records with the help of the Primary Key.
+     * I can create methods like 'findBY()' to change that, but I can also use a
+     * Query instead of methods.
+     * SpringbootData provides such a feature.
+     */
 
-
+    @Query("from Macedonian where name = :providedName")
+    List<Macedonian> find(@Param("providedName") String name);
 }
