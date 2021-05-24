@@ -16,32 +16,37 @@ public class MacedonianController {
         this.macedonianRepository = macedonianRepository;
     }
 
+    /**
+     * Specifying the format of the data is redundant if it's JSON since it's
+     * the default type. I should specify it if I wanted a different one, like xml.
+     * It would then be: "application/xml".
+     */
     @GetMapping(value = "/getMacedonians", produces = {"application/json"})
     public List<Macedonian> getMacedonians() {
         return macedonianRepository.findAll();
     }
 
-    @PostMapping("/addMacedonian/{macedonian}")
+    @PostMapping(value = "/addMacedonian", consumes = {"application/json"})
     public void addMacedonian(@RequestBody Macedonian macedonian) {
         macedonianRepository.save(macedonian);
     }
 
-    @GetMapping("/getSingleMacedonianByName/{name}")
+    @GetMapping("/getSingleMacedonianByName")
     public List<Macedonian> getSingleMacedonianByName(@RequestParam String name) {
         return macedonianRepository.findByName(name);
     }
 
-    @GetMapping("/getUnitById/{unit}")
+    @GetMapping("/getUnitById")
     public List<Macedonian> getMacedoniansByUnitOrderById(@RequestParam String unit) {
         return macedonianRepository.findByUnitOrderById(unit);
     }
 
-    @GetMapping("/getMacedonianByQuery/{name}")
+    @GetMapping("/getMacedonianByQuery")
     public List<Macedonian> getMacedonianByNameWithQuery(@RequestParam String name) {
         return macedonianRepository.find(name);
     }
 
-    @DeleteMapping("/dischargeMacedonian/{id}")
+    @DeleteMapping("/dischargeMacedonian")
     public void dischargeMacedonian(@RequestParam Long id) {
         macedonianRepository.delete(macedonianRepository.getById(id));
     }
