@@ -5,7 +5,10 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Macedonian {
 
     @Id

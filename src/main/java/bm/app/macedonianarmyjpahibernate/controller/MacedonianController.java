@@ -1,7 +1,9 @@
 package bm.app.macedonianarmyjpahibernate.controller;
 
+import bm.app.macedonianarmyjpahibernate.model.Armaments;
 import bm.app.macedonianarmyjpahibernate.model.Macedonian;
 import bm.app.macedonianarmyjpahibernate.repository.MacedonianRepository;
+import bm.app.macedonianarmyjpahibernate.service.CreateMacedonianCommand;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +29,10 @@ public class MacedonianController {
     }
 
     @PostMapping(value = "/addMacedonian", consumes = {"application/json"})
-    public void addMacedonian(@RequestBody Macedonian macedonian) {
+    public void addMacedonian(@RequestBody CreateMacedonianCommand command) {
+        Macedonian macedonian = getMacedonianFromCommand(command);
+        Armaments armaments = getArmamentsFromCommand(command);
+        armaments.setMacedonian(macedonian);
         macedonianRepository.save(macedonian);
     }
 
@@ -49,5 +54,13 @@ public class MacedonianController {
     @DeleteMapping("/dischargeMacedonian")
     public void dischargeMacedonian(@RequestParam Long id) {
         macedonianRepository.delete(macedonianRepository.getById(id));
+    }
+
+    private Macedonian getMacedonianFromCommand(CreateMacedonianCommand command) {
+        return Macedonian.builder().name(command.getName()).unit(command.getUnitType()).build();
+    }
+
+    private Armaments getArmamentsFromCommand(CreateMacedonianCommand command) {
+        return Armaments.builder().armourType(command.getArmourType()).isMounted(command.isMounted()).weapon(command.getWeapon()).build();
     }
 }

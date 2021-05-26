@@ -6,6 +6,9 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Armaments {
 
     @Id
@@ -18,5 +21,8 @@ public class Armaments {
     private String weapon;
     private boolean isMounted;
 
-
+    public void setMacedonian(Macedonian macedonian) {
+        this.macedonian = macedonian;
+        macedonian.setArmaments(this);
+    }
 }
