@@ -1,23 +1,19 @@
 package bm.app.macedonianarmyjpahibernate.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
-@Getter
+@Data
 public class Macedonian {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String unit;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "macedonian", orphanRemoval = true)
+    private Armaments armaments;
 
 }

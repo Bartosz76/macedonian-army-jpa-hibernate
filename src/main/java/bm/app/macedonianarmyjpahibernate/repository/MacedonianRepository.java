@@ -40,4 +40,6 @@ public interface MacedonianRepository extends JpaRepository<Macedonian, Long> {
 
     @Query("from Macedonian where name = :providedName")
     List<Macedonian> find(@Param("providedName") String name);
+
+
 }
